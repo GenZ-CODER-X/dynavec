@@ -124,6 +124,21 @@ def test_url_source_yields_readable_text(monkeypatch):
         "url": "https://example.com",
     }
 
+
+def test_url_source_raises_for_http_error(monkeypatch):
+    class FakeResponse:
+        text = ""
+
+        def raise_for_status(self):
+            raise requests.HTTPError("404 Not Found")
+
+    def fake_get(url, timeout):
+        return FakeResponse()
+
+    monkeypatch.setattr("dynavec.ingest.requests.get", fake_get)
+
+    with pytest.raises(requests.HTTPError):
+        list(URLSource("https://example.com/missing"))
 # ---- fake MCP session mirroring the SDK's list_resources / read_resource ----
 class _Res:
     def __init__(self, uri, name):
