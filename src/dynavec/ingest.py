@@ -27,6 +27,8 @@ from .exceptions import MissingDependencyError
 from .models import Document
 from .utils import chunked
 
+import requests
+
 Metadata = dict[str, Any]
 
 
@@ -104,6 +106,40 @@ class PDFSource:
                 },
             )
 
+class URLSource:
+    """Yield one Record containing readable text extracted from a URL."""
+    def __init__(self, url: str, timeout: float=10)->None:
+        try:
+            from bs4 import BeautifulSoup
+        except ImportError as exc:
+            raise MissingDependencyError(
+                "URLSource",
+                "beautifulsoup4",
+                "ingest"
+            ) from exc
+        self._url= url
+        self._timeout= timeout
+        self._parser_cls= BeautifulSoup
+    
+    def __iter__(self)-> Iterator[Record]:
+        response=requests.get(
+            self._url,
+            timeout=self._timeout)
+        response.raise_for_status()
+        soup=self._parser_cls(response.text,"html.parser")  
+        for tag in soup(["script","style"]):
+            tag.decompose()
+        page_text=soup.get_text(separator=" ",strip=True)
+        if not page_text:
+            return
+        yield Record(
+            id= self._url,
+            text= page_text,
+            metadata={
+                "source": "url",
+                "url": self._url
+                },
+            )
 
 class MCPResourceSource:
     """Adapt an MCP server's *resources* into dynavec records.
