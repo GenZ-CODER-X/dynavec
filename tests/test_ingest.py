@@ -159,22 +159,6 @@ def test_url_source_skips_empty_pages(monkeypatch):
     assert records == []
 
 
-def test_url_source_skips_empty_pages(monkeypatch):
-    class FakeResponse:
-        text = "<html><body></body></html>"
-
-        def raise_for_status(self):
-            pass
-
-    def fake_get(url, timeout):
-        return FakeResponse()
-
-    monkeypatch.setattr("dynavec.ingest.requests.get", fake_get)
-
-    records = list(URLSource("https://example.com"))
-
-    assert records == []
-
 # ---- fake MCP session mirroring the SDK's list_resources / read_resource ----
 class _Res:
     def __init__(self, uri, name):
