@@ -35,3 +35,8 @@ What happened instead?
 
 ```text
 Paste a minimal reproducible example or relevant configuration here.
+```
+
+## Additional context
+
+Add any other information, logs, screenshots, or details that may help reproduce the issue.
