@@ -150,7 +150,7 @@ def test_url_source_skips_empty_pages(monkeypatch):
         def raise_for_status(self):
             pass
 
-    def fake_get(url, timeout):
+    def fake_get(url, timeout, headers):
         return FakeResponse()
 
     monkeypatch.setattr("dynavec.ingest.requests.get", fake_get)
