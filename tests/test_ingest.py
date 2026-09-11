@@ -104,9 +104,10 @@ def test_url_source_yields_readable_text(monkeypatch):
         def raise_for_status(self):
             pass
 
-    def fake_get(url, timeout):
+    def fake_get(url, timeout, headers):
         assert url == "https://example.com"
         assert timeout == 10
+        assert headers["User-Agent"] == "dynavec/1.0"
         return FakeResponse()
 
     monkeypatch.setattr("dynavec.ingest.requests.get", fake_get)
