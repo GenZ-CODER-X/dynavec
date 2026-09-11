@@ -29,8 +29,6 @@ from .exceptions import MissingDependencyError
 from .models import Document
 from .utils import chunked
 
-
-
 Metadata = dict[str, Any]
 
 
