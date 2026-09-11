@@ -134,7 +134,7 @@ def test_url_source_raises_for_http_error(monkeypatch):
         def raise_for_status(self):
             raise requests.HTTPError("404 Not Found")
 
-    def fake_get(url, timeout):
+    def fake_get(url, timeout, headers):
         return FakeResponse()
 
     monkeypatch.setattr("dynavec.ingest.requests.get", fake_get)
