@@ -124,7 +124,9 @@ class URLSource:
     def __iter__(self)-> Iterator[Record]:
         response=requests.get(
             self._url,
-            timeout=self._timeout)
+            timeout=self._timeout,
+            headers={"User-Agent": "dynavec/1.0"},
+        )
         response.raise_for_status()
         soup=self._parser_cls(response.text,"html.parser")  
         for tag in soup(["script","style"]):
