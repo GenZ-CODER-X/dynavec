@@ -22,12 +22,14 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any
 
+import requests
+
 from .client import Dynavec
 from .exceptions import MissingDependencyError
 from .models import Document
 from .utils import chunked
 
-import requests
+
 
 Metadata = dict[str, Any]
 
