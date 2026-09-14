@@ -41,8 +41,9 @@ NAV = [
         ("credentials", "Credentials & IAM"),
     ]),
     ("Ecosystem", [
-        ("integrations", "Framework integrations"),
-        ("benchmarking", "Benchmarking"),
+    ("integrations", "Framework integrations"),
+    ("dashboard", "Telemetry dashboard"),
+    ("benchmarking", "Benchmarking"),
     ]),
     ("About", [
         ("release-notes", "Release notes"),
@@ -834,6 +835,42 @@ caching backends, framework adapters, and one-shot provisioning.</p>
 """)
 
 
+PAGES["dashboard"] = ("Telemetry dashboard",
+    "A native, in-your-brand observability dashboard — a Langfuse-style view of real query telemetry.",
+    """
+<p>Attach a recorder to your client and every search is captured with latency, cache outcome,
+result count, and score stats. No simulated data.</p>
+<div class="callout">Live interactive preview: <a href="https://codeforstartups.github.io/dynavec/dashboard/" target="_blank" rel="noopener">codeforstartups.github.io/dynavec/dashboard</a> (landing-page theme).</div>
+<h2>1. Expose real telemetry</h2>
+<p>Attach a recorder to your client and serve the API:</p>
+""" + code("""from dynavec import Dynavec, DynavecConfig, SemanticCache
+from dynavec.telemetry import TelemetryRecorder
+from dynavec.dashboard import serve
+
+rec = TelemetryRecorder()
+db = Dynavec(cfg, embedder=emb, cache=SemanticCache(), telemetry=rec)
+# ... your app runs searches; the recorder fills automatically ...
+serve(rec, port=8779)          # JSON API at http://127.0.0.1:8779""") + """
+<h2>2. Run the dashboard</h2>
+<p>Points at that API; falls back to sample data if unset:</p>
+""" + code("""cd dashboard
+npm install
+NEXT_PUBLIC_DYNAVEC_API=http://127.0.0.1:8779 npm run dev   # http://localhost:3000""") + """
+<p>No AWS? <code>python examples/dashboard_demo.py</code> runs real searches against in-memory
+stand-ins and serves the API on <code>:8779</code> for the dashboard to read.</p>
+<h2>Tracing view</h2>
+<p>Shows a query-volume histogram, latency percentiles (p50/p95/p99), cache hit-rate, and a
+filterable traces table with per-trace drill-down:</p>
+<table class="doc__params">
+<tr><th>Panel</th><th>Shows</th></tr>
+<tr><td>KPI cards</td><td>Queries/min, p95 latency, cache hit rate, average results, error rate</td></tr>
+<tr><td>Query volume</td><td>Histogram of trace counts per time bucket</td></tr>
+<tr><td>Latency percentiles</td><td>p50 / p95 / p99 latency in ms</td></tr>
+<tr><td>Traces table</td><td>Every recorded <code>search</code>, <code>graph_search</code>, and <code>upsert</code> call — namespace, latency, results, cache hit/miss, rank strategy — filterable by op, status, and namespace</td></tr>
+</table>
+<img src="../images/dashboard_tracing.png" alt="Tracing view" class="doc__img" />
+<p>Click any row to open a detail drawer with per-call similarity scores, filter state, and error details.</p>
+""")
 def render(slug: str) -> str:
     title, sub, body = PAGES[slug]
     # sidebar
