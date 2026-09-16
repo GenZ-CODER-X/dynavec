@@ -787,6 +787,28 @@ uv pip install --upgrade dynavec""") + """
 and every version is a
 <a href="https://github.com/codeforstartups/dynavec/releases">GitHub Release</a>.</p>
 
+<h2 id="v0-5-0">0.5.0 <span class="doc__sub" style="font-weight:400">&mdash; 2026-09-16</span></h2>
+<p>More ingestion formats, more integrations, and observability.</p>
+<h3>Added</h3>
+<ul>
+  <li><strong>Office document ingestion</strong> &mdash; <code>DocxSource</code>, <code>PptxSource</code>,
+      and <code>XlsxSource</code> for Word, PowerPoint, and Excel files.</li>
+  <li><strong>Hugging Face Inference embedder</strong> &mdash; <code>HFInferenceEmbedder</code>
+      backed by the HF Serverless Inference API.</li>
+  <li><strong>DSPy retrieval integration</strong> &mdash; <code>DynavecRM(dspy.Retrieve)</code> to
+      back a DSPy pipeline with a dynavec client.</li>
+  <li><strong>Structured logging</strong> &mdash; opt-in JSON store-event logs with secret
+      redaction (<code>structured_logging=True</code>).</li>
+  <li><strong>ProductQuantizer persistence</strong> &mdash; <code>save()</code> / <code>load()</code>
+      via safe <code>np.savez</code> (no pickle).</li>
+  <li><strong>Dashboard dark mode</strong> with theme parity to the landing page.</li>
+</ul>
+<h3>Performance</h3>
+<ul>
+  <li><strong>Vectorized MMR</strong> reranking &mdash; O(k·N) instead of O(k·N·k) on large
+      candidate sets.</li>
+</ul>
+
 <h2 id="v0-4-0">0.4.0 <span class="doc__sub" style="font-weight:400">&mdash; 2026-09-12</span></h2>
 <p>Headlined by the in-memory hot tier for in-memory-engine latency without a paid cluster.</p>
 <h3>Added</h3>
