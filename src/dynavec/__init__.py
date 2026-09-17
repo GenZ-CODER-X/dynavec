@@ -20,7 +20,7 @@ Quick start
 
 from __future__ import annotations
 
-from .cache import BaseCache, DynamoDBCache, RedisCache, SemanticCache
+from .cache import BaseCache, DynamoDBCache, RedisCache, SemanticCache, warm_cache
 from .client import Dynavec
 from .config import DynavecConfig
 from .credentials import AWSCredentials
@@ -79,6 +79,7 @@ __all__ = [
     "SemanticCache",
     "DynamoDBCache",
     "RedisCache",
+    "warm_cache",
     "reciprocal_rank_fusion",
     "maximal_marginal_relevance",
     "HotTier",
