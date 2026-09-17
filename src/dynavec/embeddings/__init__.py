@@ -10,6 +10,8 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 
 from .base import Embedder, Vector
+from .cache import EmbeddingCache, InMemoryCache
+from .cached import CachedEmbedder
 
 if TYPE_CHECKING:  # for type checkers / IDEs only
     from .bedrock import BedrockEmbedder, BedrockTitanMultimodalEmbedder
@@ -33,6 +35,9 @@ __all__ = [
     "MistralEmbedder",
     "OllamaEmbedder",
     "HFInferenceEmbedder",
+    "EmbeddingCache",
+    "InMemoryCache",
+    "CachedEmbedder",
 ]
 
 _LAZY = {
