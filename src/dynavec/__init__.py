@@ -37,6 +37,7 @@ from .fusion import RRFWeightFitter
 from .graph import GraphStore
 from .hot import HotTier
 from .ingest import (
+    CsvSource,
     DocxSource,
     IterableSource,
     MarkdownSource,
@@ -104,6 +105,7 @@ __all__ = [
     "ingest",
     "IterableSource",
     "PDFSource",
+    "CsvSource",
     "DocxSource",
     "PptxSource",
     "XlsxSource",
