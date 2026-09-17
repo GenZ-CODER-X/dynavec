@@ -50,7 +50,12 @@ from .ingest import (
 )
 from .models import Document, SearchResult, UpsertResult
 from .namespace import NamespaceView
-from .quantization import ProductQuantizer, ScalarQuantizer
+from .quantization import (
+    OPQRotation,
+    OptimizedProductQuantizer,
+    ProductQuantizer,
+    ScalarQuantizer,
+)
 from .retrieval import (
     maximal_marginal_relevance,
     reciprocal_rank_fusion,
@@ -75,6 +80,8 @@ __all__ = [
     "NamespaceView",
     "ProductQuantizer",
     "ScalarQuantizer",
+    "OPQRotation",
+    "OptimizedProductQuantizer",
     "GraphStore",
     "BaseCache",
     "SemanticCache",
