@@ -254,7 +254,7 @@ def test_graph_shortest_path_returns_minimum_hops(db):
         "d",
     ]
     
- def test_graph_shortest_path_returns_minimum_hops(db):
+def test_graph_shortest_path_returns_minimum_hops(db):
     db.graph_add_edge("a", "related_to", "c")
     db.graph_add_edge("c", "related_to", "e")
     db.graph_add_edge("e", "related_to", "d")
