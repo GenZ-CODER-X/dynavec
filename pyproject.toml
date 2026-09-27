@@ -62,7 +62,6 @@ typecheck = [
     "llama-index-core>=0.11",
     "haystack-ai>=2.0",
     "dspy>=3.3; python_version >= '3.10'",
-    "semantic-kernel>=1.44",
 ]
 all = [
     "openai>=1.40",
